@@ -25,16 +25,17 @@ import {
 } from "./pages";
 import "./App.css";
 import { useStateContext } from "./contexts/ContextProvider";
+import { themeColors } from "./data/dummy";
 
 const App = () => {
-  const { activeMenu } = useStateContext();
+  const { activeMenu,themeSettings,setThemeSettings } = useStateContext();
 
   return (
     <div>
       <BrowserRouter>
         <div className="flex relative dark:main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-            <TooltipComponent content="settings" position="Top">
+            <TooltipComponent content="Settings" position="Top">
               <button
                 type="button"
                 className="
@@ -46,6 +47,7 @@ const App = () => {
                   background: "blue",
                   borderRadius: "50%",
                 }}
+                onClick = {()=>setThemeSettings(!themeSettings)}
               >
                 <FiSettings />
               </button>
@@ -73,8 +75,8 @@ const App = () => {
             <div className="fixed md:static bg-main-bg   dark:bg-main-dark-bg navbar w-full">
               <Navbar />
             </div>
-
             <div>
+            {themeSettings && <ThemeSettings />}
               <Routes>
                 {/* Dashboard */}
                 <Route path="/" element={<Ecommerce />} />
